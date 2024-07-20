@@ -2,3 +2,8 @@ application:
   host: 127.0.0.1
 database:
   require_ssl:  false
+  host: "127.0.0.1"
+  port: 54322
+  username: "postgres"
+  password: "password"
+  database_name: "newsletter"

@@ -1,1 +1,7 @@
 curl -i -X POST  http://127.0.0.1:8000/subscriptions --data-urlencode "name=Tom" --data-urlencode  "email=thomas_mann@hotmail.com"
+
+curl --proxy 192.168.32.1:7890 -v https://
+grumpy-hermia-rainingclub-136984ce.koyeb.app/health_check
+
+curl --proxy 192.168.32.1:7890 -i -X POST  https://grumpy-hermia-rainingclub-136984ce.koyeb.app/subscriptions --data-urlencode "name=Tom" --data-urlencode  "email=thomas_mann@hotmail.com"
+

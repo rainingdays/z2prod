@@ -2,3 +2,8 @@ application:
   host: 0.0.0.0
 database:
   require_ssl: true
+  host: "ep-dry-wave-a40xc86y.us-east-1.pg.koyeb.app"
+  port: 5432
+  username: "postgres"
+  password: "8mwscCNro3GX"
+  database_name: "koyebdb"
