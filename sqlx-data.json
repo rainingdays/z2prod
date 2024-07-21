@@ -14,5 +14,29 @@
       }
     },
     "query": "\n        Insert Into subscriptions (id, email, name, subscribed_at) \n        Values ($1, $2, $3,$4)"
+  },
+  "d0fd97960a422e0d788f95296bb832d672220b555fd6816fe80b074179003c25": {
+    "describe": {
+      "columns": [
+        {
+          "name": "email",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "Select email, name From subscriptions"
   }
 }
