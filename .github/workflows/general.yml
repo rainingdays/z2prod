@@ -29,7 +29,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: newsletter
         ports:
-          - 5432:5432
+          - 54322:5432
       redis:
         image: redis:7
         ports:
@@ -79,7 +79,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: newsletter
         ports:
-          - 5432:5432
+          - 54322:5432
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
@@ -113,7 +113,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: newsletter
         ports:
-          - 5432:5432
+          - 54322:5432
         # options: >-
         #   --health-cmd pg_isready
         #   --health-interval 10s
