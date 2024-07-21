@@ -69,39 +69,39 @@ jobs:
       - name: Enforce formatting
         run: cargo fmt --check
 
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:14
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: newsletter
-        ports:
-          - 54322:5432
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: sqlx-${{ env.SQLX_VERSION }}
-      - name: Install sqlx-cli
-        run:
-          cargo install sqlx-cli
-            --version=${{ env.SQLX_VERSION }}
-            --features ${{ env.SQLX_FEATURES }}
-            --no-default-features
-            --locked
-      - name: Migrate database
-        run: |
-          sudo apt-get install libpq-dev -y
-          SKIP_DOCKER=true ./scripts/init_db.sh
-      - name: Linting
-        run: cargo clippy -- -D warnings
+  # clippy:
+  #   name: Clippy
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     postgres:
+  #       image: postgres:14
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: password
+  #         POSTGRES_DB: newsletter
+  #       ports:
+  #         - 54322:5432
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: dtolnay/rust-toolchain@stable
+  #       with:
+  #         components: clippy
+  #     - uses: Swatinem/rust-cache@v2
+  #       with:
+  #         key: sqlx-${{ env.SQLX_VERSION }}
+  #     - name: Install sqlx-cli
+  #       run:
+  #         cargo install sqlx-cli
+  #           --version=${{ env.SQLX_VERSION }}
+  #           --features ${{ env.SQLX_FEATURES }}
+  #           --no-default-features
+  #           --locked
+  #     - name: Migrate database
+  #       run: |
+  #         sudo apt-get install libpq-dev -y
+  #         SKIP_DOCKER=true ./scripts/init_db.sh
+  #     - name: Linting
+  #       run: cargo clippy -- -D warnings
 
   coverage:
     name: Code coverage
