@@ -16,6 +16,7 @@ env:
   CARGO_TERM_COLOR: always
   SQLX_VERSION: 0.7.1
   SQLX_FEATURES: "rustls,postgres"
+  DATABASE_URL: postgres://postgres:password@127.0.0.1:54322/newsletter
 
 jobs:
   test:
