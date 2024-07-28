@@ -7,3 +7,7 @@ database:
   username: "postgres"
   password: "8mwscCNro3GX"
   database_name: "koyebdb"
+email_client:
+  base_url: "https://sandbox.api.mailtrap.io/api/send/3045783"
+  sender_url: "vivalavida563@gmail.com"
+  

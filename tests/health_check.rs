@@ -8,6 +8,7 @@ use sqlx::{Connection, PgConnection, PgPool};
 use tracing::instrument::WithSubscriber;
 use uuid::Uuid;
 use z2prod::configuration::{self, get_configuration, DatabaseSettings};
+use z2prod::email_client::EmailClient;
 use z2prod::telemetry::*;
 
 static TRACING: Lazy<()> = Lazy::new(|| {
@@ -57,12 +58,24 @@ async fn spawn_app() -> TestApp {
     let address = format!("http://127.0.0.1:{}", port);
     let mut configuration = get_configuration().expect("Failed to read configuration");
     configuration.database.database_name = Uuid::new_v4().to_string();
+    let timeout = configuration.email_client.timeout();
+    let sender_email = configuration
+        .email_client
+        .sender()
+        .expect("Invalid sender email address.");
+    let email_client = EmailClient::new(
+        configuration.email_client.base_url,
+        sender_email,
+        configuration.email_client.authorization_token,
+        timeout,
+    );
 
     // let connection_pool = PgPool::connect(&configuration.database.connection_string())
     //     .await
     //     .expect("Failed to connect to database");
     let connection_pool = configure_database(&configuration.database).await;
-    let server = z2prod::run(listener, connection_pool.clone()).expect("Failed to bind address");
+    let server = z2prod::run(listener, connection_pool.clone(), email_client)
+        .expect("Failed to bind address");
     let server_task_handle = tokio::spawn(server);
     // server_task_handle.is_finished();
     TestApp {

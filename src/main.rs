@@ -10,6 +10,7 @@ use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_log::LogTracer;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::{EnvFilter, Registry};
+use z2prod::email_client::EmailClient;
 use z2prod::{configuration, telemetry::*};
 use z2prod::{configuration::get_configuration, run};
 
@@ -86,7 +87,18 @@ async fn main() -> std::io::Result<()> {
     // .await
     // .expect("Failed to connect to Postgres.");
     // let address = format!("127.0.0.1:{}", configuration.application_port);
+    let sender_email = configuration
+        .email_client
+        .sender()
+        .expect("Invalid sender email address.");
+    let timeout = configuration.email_client.timeout();
+    let email_client = EmailClient::new(
+        configuration.email_client.base_url,
+        sender_email,
+        configuration.email_client.authorization_token,
+        timeout,
+    );
     let listener = TcpListener::bind(address)?;
 
-    run(listener, connection_pool)?.await
+    run(listener, connection_pool, email_client)?.await
 }
