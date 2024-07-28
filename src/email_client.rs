@@ -108,7 +108,7 @@ mod tests {
             mock_server.uri(),
             sender,
             Secret::new(fake::Faker.fake()),
-            std::time::Duration::from_millis(5000),
+            std::time::Duration::from_millis(200),
         );
         (email_client, mock_server)
     }
