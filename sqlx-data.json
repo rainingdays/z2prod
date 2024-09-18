@@ -1,42 +1,18 @@
 {
-  "db": "PostgreSQL",
-  "3170fd04fe7ddd5236055d179697ddea96ecd218ebc8e94a870c5f91a674f767": {
-    "describe": {
-      "columns": [],
-      "nullable": [],
-      "parameters": {
-        "Left": [
-          "Uuid",
-          "Text",
-          "Text",
-          "Timestamptz"
-        ]
-      }
-    },
-    "query": "\n        Insert Into subscriptions (id, email, name, subscribed_at) \n        Values ($1, $2, $3,$4)"
-  },
-  "d0fd97960a422e0d788f95296bb832d672220b555fd6816fe80b074179003c25": {
-    "describe": {
-      "columns": [
-        {
-          "name": "email",
-          "ordinal": 0,
-          "type_info": "Text"
+    "db": "PostgreSQL",
+    "25c0776360dd4ec903e21e8a6f00c2371039cac52791c1cbd10b40291f5365d8": {
+        "describe": {
+            "columns": [],
+            "nullable": [],
+            "parameters": {
+                "Left": [
+                    "Uuid",
+                    "Text",
+                    "Text",
+                    "Timestamptz"
+                ]
+            }
         },
-        {
-          "name": "name",
-          "ordinal": 1,
-          "type_info": "Text"
-        }
-      ],
-      "nullable": [
-        false,
-        false
-      ],
-      "parameters": {
-        "Left": []
-      }
-    },
-    "query": "Select email, name From subscriptions"
-  }
+        "query": "\n        Insert Into subscriptions (id, email, name, subscribed_at, status) \n        Values ($1, $2, $3,$4, 'confirmed')"
+    }
 }
